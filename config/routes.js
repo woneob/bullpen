@@ -7,6 +7,17 @@ function stripScripts(s) {
 
 module.exports = function(app) {
 	app.get('/', function(req, res) {
+		var url = 'http://mlbpark.donga.com/';
+
+		request(url, function(error, response, html){
+			if (error) {
+				throw error
+			};
+
+			var $ = cheerio.load(stripScripts(html));
+			console.log(stripScripts(html))
+		});
+
 		res.render('index');
 	});
 };
