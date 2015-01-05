@@ -20,6 +20,12 @@ module.exports = function(grunt) {
 				},
 				src: ['dist/scripts/**/*']
 			},
+			libScripts: {
+				options: {
+					force: true
+				},
+				src: ['dist/libs/**/*']
+			},
 			images: {
 				options: {
 					force: true
@@ -28,11 +34,11 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
-			minimizedScripts: {
+			libScripts: {
 				expand: true,
-				cwd: 'src/scripts/',
+				cwd: 'src/libs/',
 				src: '**/*.{min, map, compact}.js',
-				dest: 'dist/scripts/'
+				dest: 'dist/libs/'
 			},
 			otherImages: {
 				expand: true,
@@ -46,7 +52,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: 'src/scripts/',
-					src: ['controllers/**/*.js', '!**/*.{min, map, compact}.js'],
+					src: ['**/*.js', '!**/*.{min, map, compact}.js'],
 					dest: 'dist/scripts/',
 					ext: '.min.js',
 					extDot: 'last'
@@ -93,7 +99,14 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: 'src/scripts/**/*',
-				tasks: ['clean:scripts', 'copy:minimizedScripts', 'uglify'],
+				tasks: ['clean:scripts', 'uglify'],
+				options: {
+					nospawn: true
+				}
+			},
+			libScripts: {
+				files: 'src/libs/**/*',
+				tasks: ['clean:libScripts', 'copy:libScripts'],
 				options: {
 					nospawn: true
 				}
