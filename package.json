@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "author": "1UP <1up@1upz.com>",
   "dependencies": {
+    "cheerio": "^0.18.0",
     "ejs-locals": "^1.0.2",
-    "express": "^4.10.7"
+    "express": "^4.10.7",
+    "request": "^2.51.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
