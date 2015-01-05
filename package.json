@@ -29,7 +29,7 @@
     "position": "center",
     "width": 400,
     "height": 320,
-    "resizable": true,
+    "resizable": false,
     "show": true,
     "frame": false,
     "transparent": true

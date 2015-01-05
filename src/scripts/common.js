@@ -20,5 +20,7 @@ if(isNode) {
 
     win.resizeTo(600, 800);
     win.setPosition('center');
+
+    win.setResizable(true);
   }
 })(jQuery);
