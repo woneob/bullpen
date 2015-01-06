@@ -34,7 +34,7 @@
     "resizable": false,
     "show": true,
     "frame": false,
-    "transparent": true
+    "transparent": false
   },
   "node-remote": "localhost",
   "license": "MIT"
