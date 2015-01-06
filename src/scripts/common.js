@@ -3,9 +3,7 @@ var isNodeWebkit = false;
 var gui;
 var win;
 
-//Is this Node.js?
 if(isNode) {
-  //If so, test for Node-Webkit
   try {
     isNodeWebkit = (typeof require('nw.gui') !== 'undefined');
   } catch(e) {

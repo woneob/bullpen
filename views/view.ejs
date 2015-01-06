@@ -1,0 +1,25 @@
+<%
+  layout('./layouts/default');
+%>
+
+<div id="view">
+  <h1><%= subject %></h1>
+  <dl>
+    <dt>번호</dt>
+    <dd><%= articleNumber %></dd>
+    <dt>등록자</dt>
+    <dd> <%= authorNickname %>(<%= authorId %>)</dd>
+    <dt>등록일</dt>
+    <dd><%= date %></dd>
+    <dt>IP</dt>
+    <dd><%= ip %></dd>
+    <dt>조회수</dt>
+    <dd><%= views %></dd>
+    <dt>추천수</dt>
+    <dd><%= votes %></dd>
+  </dl>
+
+  <article>
+    <%- article %>
+  </article>
+</div>

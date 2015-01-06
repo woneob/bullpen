@@ -1,1 +1,37 @@
 @charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 12px;
+  color: 5a5a5a;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+#list {
+  li {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+
+    + li {
+      border-top: 1px solid #eee;
+    }
+
+    .comment {
+      font-size: 11px;
+    }
+
+    .meta {
+      font-size: 11px;
+      color: #999;
+    }
+  }
+}

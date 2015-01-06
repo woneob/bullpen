@@ -1,3 +1,22 @@
 <%
-	layout('./layouts/default');
+  layout('./layouts/default');
 %>
+
+<div id="list">
+  <ul>
+    <% postArr.forEach(function($t, i) { %>
+      <li>
+        <a href="<%- '/article/' + $t.articleId %>">
+          <%= $t.subject %>
+          <span class="comment"><%= $t.commentCount || '' %></span>
+        </a>
+        <div class="meta">
+          <%= $t.num %>
+          <%= $t.author %>(<%= $t.userId %>)
+          <%= $t.date %>
+          <%= $t.views %>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</div>
