@@ -18,7 +18,7 @@ if(isNode) {
     gui = require('nw.gui');
     win = gui.Window.get();
 
-    win.resizeTo(600, 800);
+    win.resizeTo(600, 700);
     win.setPosition('center');
 
     win.setResizable(true);
