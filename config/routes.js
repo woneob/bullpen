@@ -65,8 +65,19 @@ module.exports = function(app) {
         body = stripScripts(body);
 
         res.render('index', {
-          postArr: listData(body)
+          items: listData(body)
         });
+      });
+    });
+  });
+
+  app.post('/api/list', function(req, res) {
+    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=' + req.params.pageNum;
+    http.get(reqURL, function(response) {
+      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
+        body = stripScripts(body);
+
+        res.json(listData(body));
       });
     });
   });

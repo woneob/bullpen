@@ -2,9 +2,9 @@
   layout('./layouts/default');
 %>
 
-<div id="list">
-  <ul>
-    <% postArr.forEach(function($t, i) { %>
+<div id="articleList">
+  <ul id="list">
+    <% items.array.forEach(function($t, i) { %>
       <li>
         <a href="<%- '/article/' + $t.articleId %>">
           <%= $t.subject %>
@@ -19,4 +19,5 @@
       </li>
     <% }) %>
   </ul>
+  <button id="loadMore" type="button" data-lastid="<%= items.lastid %>">load more</button>
 </div>

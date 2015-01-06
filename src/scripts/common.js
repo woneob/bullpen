@@ -21,4 +21,55 @@ if(isNode) {
 
     win.setResizable(true);
   }
+
+  var loadMore = function() {
+    var $button = $('#loadMore');
+    var $target = $('#list');
+
+    var createList = function(res) {
+      var frag = document.createDocumentFragment();
+      var $t;
+      var li;
+
+      for (var i = 0, len = res.length; i < len; i++) {
+        $t = res[i];
+        li = document.createElement('li');
+        li.innerHTML = [
+          '<a href="/article/' + $t.articleId + '"">',
+          $t.subject,
+          '  <span class="comment">' + ($t.commentCount || '') + '</span>',
+          '</a>',
+          '<div class="meta">',
+          $t.num, 
+          $t.author + '(' + $t.userId + ')',
+          $t.date,
+          $t.views,
+          '</div>'
+        ].join('\n');
+
+        frag.appendChild(li);
+      }
+
+      $target.append(frag)
+    };
+
+    var loadList = function() {
+      $.ajax({
+        url: '/api/list',
+        type: 'POST',
+        data: {
+          lastArticleId: $(this).data('lastid')
+        },
+        dataType : 'json',
+        success: function(res) {
+          createList(res.array);
+          $button.attr('data-lastid', res.lastArticleId);
+        }
+      });
+    };
+
+    $button.on('click', loadList);
+  };
+
+  loadMore();
 })(jQuery);
