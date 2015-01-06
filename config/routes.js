@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var iconv = require('iconv-lite');
 
 function stripScripts(s) {
 	return s.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
