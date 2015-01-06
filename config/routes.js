@@ -15,32 +15,39 @@ function listData(data) {
   var $ = cheerio.load(data);
   var $posts = $('tr[height="30"]');
 
-  return  $posts.map(function(i, elem) {
+  var arr = [];
+  var lastid;
+
+  $posts.each(function(i, elem) {
     var item = this.children[1].children[1].children[1];
+    var obj = {};
+
+    var comment;
 
     if (this.type === 'tag' && this.children) {
       item = item.children;
 
-      return {
-        num: item[1].children[0].children[0].data,
-        articleId: item[3].children[1].attribs.title,
-        subject: item[3].children[1].children[0].data.trim(),
-        commentCount: (function() {
-          var comment = item[3].children[2].children[0].children[0].children[0].children[0].children[0];
+      obj.num = item[1].children[0].children[0].data;
+      obj.articleId = item[3].children[1].attribs.title;
+      obj.subject = item[3].children[1].children[0].data.trim();
 
-          if (!comment) {
-            return;
-          }
+      comment = item[3].children[2].children[0].children[0].children[0].children[0].children[0];
+      obj.commentCount = comment ? comment.children[0].data : '';
 
-          return comment.children[0].data;
-        })(),
-        author: item[5].children[0].children[1].children[0].data,
-        userId: getUserId(item[5].children[0].children[0].children[0].children[0].attribs.onclick),
-        date: item[9].children[0].children[0].data,
-        views: item[11].children[0].children[0].data
-      }
+      obj.author = item[5].children[0].children[1].children[0].data;
+      obj.userId = getUserId(item[5].children[0].children[0].children[0].children[0].attribs.onclick);
+      obj.date = item[9].children[0].children[0].data;
+      obj.views = item[11].children[0].children[0].data;
+
+      arr.push(obj);
+      lastid = obj.articleId;
     }
-  }).get();
+  });
+
+  return {
+    array: arr,
+    lastid: lastid
+  };
 }
 
 var mlbparkPath = 'http://mlbpark.donga.com';
