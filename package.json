@@ -29,7 +29,7 @@
   "node-main": "app.js",
   "window": {
     "title": "Test",
-    "toolbar": true,
+    "toolbar": false,
     "position": "center",
     "width": 400,
     "height": 320,
