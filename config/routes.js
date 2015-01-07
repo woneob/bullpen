@@ -30,11 +30,9 @@ function listData(data) {
 
       $link = $(this).find('td[width="383"] > a');
       obj.articleId = $link.attr('title');
-      obj.subject = $link.text();
+      obj.subject = $link.text().trim();
 
       obj.commentCount = $(this).find('td[width="383"] .A12oreng').text();
-
-      console.log();
 
       obj.author = $(this).find('td[width="82"] a').text();
       obj.userId = getUserId($(this).find('td[width="82"] li:first-child').attr('onclick'));
