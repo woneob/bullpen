@@ -47,14 +47,20 @@ if(isNode) {
       ].join('\n'));
     };
 
+    var clearCurrent = function() {
+      $list.find('.current').removeClass('current');
+    };
+
     $list.on('click', '.articleOpener', function(e) {
       if ($(this).hasClass('current')) {
+        clearCurrent();
+        $target.empty();
         return;
       }
 
       var articleId = this.dataset.articleid;
 
-      $list.find('.current').removeClass('current');
+      clearCurrent();
       $(this).addClass('current');
 
       $.ajax({
