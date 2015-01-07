@@ -132,36 +132,4 @@ module.exports = function(app) {
       });
     });
   });
-
-  app.get('/article/:articleId', function(req, res) {
-    var reqParams = req.params;
-    var articleId = reqParams.articleId;
-    var reqURL = mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId;
-
-    http.get(reqURL, function(response) {
-      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
-        body = stripScripts(body);
-        var $ = cheerio.load(body);
-
-        if (!$('body').length) {
-          res.send('존재하지 않는 게시물 입니다.');
-        }
-
-        var data = {};
-        data.subject = $('td[width="82%"] strong').text();
-        data.author = $('td[width="18%"] font');
-        data.authorNickname = data.author[0].children[3].children[0].children[0].data;
-        data.authorId = getUserId(data.author[0].children[1].children[1].children[0].attribs.onclick);
-        data.article = $('.G13 div[align="justify"]').html();
-        data.articleNumber = articleId;
-        data.date = $('.D11[width="225"] font:last-child').text();
-        data.ip = $('.D11[width="201"] font:last-child').text();
-        data.viewAndVotes = $('.D11[width="76"] strong');
-        data.views = data.viewAndVotes.eq(0).text();
-        data.votes = data.viewAndVotes.eq(1).text();
-
-        res.render('view', data);
-      });
-    });
-  });
 };
