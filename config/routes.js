@@ -29,6 +29,7 @@ function listData(data) {
       obj.num = $(this).find('td[width="45"]').text();
 
       $link = $(this).find('td[width="383"] > a');
+      obj.isReply = !!$link.find('img[src$="re.gif"]').length;
       obj.articleId = $link.attr('title');
       obj.subject = $link.text().trim();
 

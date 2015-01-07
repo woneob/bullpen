@@ -112,6 +112,7 @@ body {
     }
 
     li {
+      position: relative;
       padding: 10px;
       font-size: 13px;
 
@@ -128,6 +129,22 @@ body {
 
         &:hover {
           background-color: #f4f4f4;
+        }
+      }
+
+      &[data-reply="true"] {
+        padding-left: 30px;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 6px;
+          left: 10px;
+          width: 8px;
+          height: 10px;
+          border-width: 0 0 1px 1px;
+          border-style: solid;
+          border-color: #bbb;
         }
       }
 

@@ -9,7 +9,7 @@
         <div id="list">
           <ul>
             <% items.array.forEach(function($t, i) { %>
-              <li class="articleOpener" data-articleid="<%= $t.articleId %>">
+              <li class="articleOpener" data-articleid="<%= $t.articleId %>" <%- $t.isReply ? 'data-reply="' + $t.isReply + '"' : '' %>>
                 <div>
                   <%= $t.subject %>
                   <span class="comment"><%= $t.commentCount || '' %></span>

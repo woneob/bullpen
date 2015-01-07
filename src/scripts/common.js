@@ -91,6 +91,11 @@ if(isNode) {
         li = document.createElement('li');
         li.className = 'articleOpener';
         li.dataset.articleid = $t.articleId;
+
+        if ($t.isReply) {
+          li.dataset.reply = 'true';
+        }
+
         li.innerHTML = [
           '<div>',
           $t.subject,
