@@ -22,7 +22,51 @@ if(isNode) {
     win.setResizable(true);
   }
 
-  var loadMore = function() {
+  var articleOpen = (function() {
+    var $target = $('#indexMain .mainWrap');
+    var $list = $('#list');
+
+    var open = function(res) {
+      $target.html([
+        '<h1>' + res.subject +'</h1>',
+        '<dl>',
+        '  <dt>번호</dt>',
+        '  <dd>' + res.articleNumber + '</dd>',
+        '  <dt>등록자</dt>',
+        '  <dd>' + res.authorNickname + '(' + res.authorId + ')</dd>',
+        '  <dt>등록일</dt>',
+        '  <dd>' + res.date + '</dd>',
+        '  <dt>IP</dt>',
+        '  <dd>' + res.ip + '</dd>',
+        '  <dt>조회수</dt>',
+        '  <dd>' + res.views + '</dd>',
+        '  <dt>추천수</dt>',
+        '  <dd>' + res.votes + '</dd>',
+        '</dl>',
+        '<article>',
+        '  ' + res.article,
+        '</article>'
+      ].join('\n'));
+    };
+
+    $list.on('click', '.articleOpener', function(e) {
+      var articleId = this.dataset.articleid;
+
+      $.ajax({
+        url: '/api/article',
+        type: 'POST',
+        data: {
+          articleId: articleId
+        },
+        dataType : 'json',
+        success: function(res) {
+          open(res);
+        }
+      });
+    });
+  })();
+
+  var loadMore = (function() {
     var $button = $('#loadMore');
     var $target = $('#list');
 
@@ -34,11 +78,13 @@ if(isNode) {
       for (var i = 0, len = res.length; i < len; i++) {
         $t = res[i];
         li = document.createElement('li');
+        li.className = 'articleOpener';
+        li.dataset.articleid = $t.articleId;
         li.innerHTML = [
-          '<a href="/article/' + $t.articleId + '"">',
+          '<div>',
           $t.subject,
           '  <span class="comment">' + ($t.commentCount || '') + '</span>',
-          '</a>',
+          '</div>',
           '<div class="meta">',
           $t.num, 
           $t.author + '(' + $t.userId + ')',
@@ -75,7 +121,27 @@ if(isNode) {
     };
 
     $button.on('click', loadList);
-  };
+  })();
 
-  loadMore();
+  var sidebarResizer = (function() {
+    var $splitter = $('#splitter');
+    var $sidebar = $('#indexAside');
+
+    $splitter.on('mousedown', function(e) {
+      e.preventDefault();
+      $(document).on({
+        mousemove: function(e) {
+          $sidebar.css({
+            width: e.pageX
+          });
+
+          $(document.body).addClass('resizing');
+        },
+        mouseup: function(e) {
+          $(this).off('mousemove');
+          $(document.body).removeClass('resizing');
+        }
+      });
+    });
+  })();
 })(jQuery);
