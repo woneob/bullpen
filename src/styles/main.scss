@@ -72,10 +72,14 @@ body {
   }
 
   .splitter {
-    width: 4px;
+    width: 1px;
+    border-right: 1px solid #ddd;
     min-height: 100%;
-    background: #333;
     cursor: col-resize;
+
+    &:hover {
+      background-color: #ccc;
+    }
   }
 
   .main {
