@@ -54,16 +54,22 @@ if(isNode) {
     };
 
     var loadList = function() {
+      var data = this.dataset;
+
       $.ajax({
         url: '/api/list',
         type: 'POST',
         data: {
-          lastArticleId: $(this).data('lastid')
+          lastid: data.lastid,
+          page: data.page
         },
         dataType : 'json',
         success: function(res) {
           createList(res.array);
-          $button.attr('data-lastid', res.lastArticleId);
+          $button.attr({
+            'data-lastid': res.lastid,
+            'data-page': res.page
+          });
         }
       });
     };

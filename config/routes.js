@@ -74,12 +74,22 @@ module.exports = function(app) {
   });
 
   app.post('/api/list', function(req, res) {
-    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=' + req.params.pageNum;
+    var reqData = req.body;
+    var page = Number(reqData.page);
+    var lastid = Number(reqData.lastid);
+
+    page++;
+
+    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=' + page;
+
     http.get(reqURL, function(response) {
       response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
         body = stripScripts(body);
 
-        res.json(listData(body));
+        var resData = listData(body);
+        resData.page = page;
+
+        res.json(resData);
       });
     });
   });
