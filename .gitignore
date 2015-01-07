@@ -1,4 +1,8 @@
 *.sublime-workspace
 *.sublime-project
 node_modules
+dist
+data
 thumbs.db
+.sass-cache
+*.css.map

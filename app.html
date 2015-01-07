@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Bullpen</title>
+  <style>
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    #cover {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body onload="bodyOnLoad();">
+  <div id="cover">
+    loading..
+  </div>
+
+  <script>
+    function bodyOnLoad(){
+      window.location.replace('http://localhost:3801/');
+    }
+  </script>
+</body>
+</html>
