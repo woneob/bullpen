@@ -2,24 +2,35 @@
   layout('./layouts/default');
 %>
 
-<div id="articleList">
-  <div id="list">
-    <ul>
-      <% items.array.forEach(function($t, i) { %>
-        <li>
-          <a href="<%- '/article/' + $t.articleId %>">
-            <%= $t.subject %>
-            <span class="comment"><%= $t.commentCount || '' %></span>
-          </a>
-          <div class="meta">
-            <%= $t.num %>
-            <%= $t.author %>(<%= $t.userId %>)
-            <%= $t.date %>
-            <%= $t.views %>
-          </div>
-        </li>
-      <% }) %>
-    </ul>
-  </div>
-  <button id="loadMore" type="button" data-page="1" data-lastid="<%= items.lastid %>">load more</button>
+<div id="indexContainer">
+  <aside id="indexAside" class="aside">
+    <div class="asideWrap">
+      <div id="articleList">
+        <div id="list">
+          <ul>
+            <% items.array.forEach(function($t, i) { %>
+              <li>
+                <a href="<%- '/article/' + $t.articleId %>">
+                  <%= $t.subject %>
+                  <span class="comment"><%= $t.commentCount || '' %></span>
+                </a>
+                <div class="meta">
+                  <%= $t.num %>
+                  <%= $t.author %>(<%= $t.userId %>)
+                  <%= $t.date %>
+                  <%= $t.views %>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+        <button id="loadMore" type="button" data-page="1" data-lastid="<%= items.lastid %>">load more</button>
+      </div>
+    </div>
+  </aside>
+  <span id="splitter" class="splitter"></span>
+  <main id="indexMain" class="main">
+    <div class="mainWrap">
+    </div>
+  </main>
 </div>

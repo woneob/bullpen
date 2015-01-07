@@ -5,29 +5,123 @@
 @import "partials/_scrollbar";
 
 html {
+  height: 100%;
+  min-height: 100%;
   font-size: 12px;
   color: 5a5a5a;
 }
 
+body {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  min-height: 100%;
+
+  .pageHeader {
+    flex: 1;
+    min-height: 30px;
+    max-height: 30px;
+    background: #666;
+
+    h1 {
+      padding: 6px 10px;
+      font-size: 14px;
+      color: #999;
+    }
+  }
+
+  .pageBody {
+    display: flex;
+    flex: auto;
+  }
+
+  .pageFooter {
+    box-sizing: border-box;
+    flex: 1 0 10%;
+    min-height: 30px;
+    max-height: 30px;
+    padding-top: 6px;
+    background: #f6f6f6;
+    border-top: 1px solid #eee;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+  }
 }
 
-#list {
-  li {
-    padding-top: 10px;
-    margin-bottom: 10px;
-    font-size: 13px;
+#indexContainer {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  min-height: 100%;
 
-    + li {
-      border-top: 1px solid #eee;
+  .aside {
+    position: relative;
+    width: 360px;
+    min-height: 100%;
+
+    .asideWrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      overflow-y: auto;
+    }
+  }
+
+  .splitter {
+    width: 4px;
+    min-height: 100%;
+    background: #333;
+    cursor: col-resize;
+  }
+
+  .main {
+    flex: 1;
+    position: relative;
+    min-height: 100%;
+    overflow-y: auto;
+
+    .mainWrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      overflow-y: auto;
+    }
+  }
+}
+
+#articleList {
+  ul {
+    + ul:not(:empty) {
+      border-top: 1px solid #ccc;
     }
 
-    .comment {
-      font-size: 11px;
-    }
+    li {
+      padding: 10px;
+      font-size: 13px;
 
-    .meta {
-      font-size: 11px;
-      color: #999;
+      &:hover {
+        background-color: #f9f9f9;
+      }
+
+      + li {
+        border-top: 1px solid #eee;
+      }
+
+      .comment {
+        font-size: 11px;
+      }
+
+      .meta {
+        font-size: 11px;
+        color: #999;
+      }
     }
   }
 }
