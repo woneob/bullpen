@@ -1,7 +1,7 @@
 {
   "name": "Bullpen",
   "description": "Bullpen Desktop Application",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "1UP <1up@1upz.com>",
   "dependencies": {
     "body-parser": "^1.10.1",
