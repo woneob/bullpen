@@ -118,11 +118,20 @@ body {
         border-top: 1px solid #eee;
       }
 
+      &.current {
+        background-color: #f6f6f6;
+
+        &:hover {
+          background-color: #f4f4f4;
+        }
+      }
+
       .comment {
         font-size: 11px;
       }
 
       .meta {
+        margin-top: 4px;
         font-size: 11px;
         color: #999;
       }

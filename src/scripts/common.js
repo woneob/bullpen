@@ -50,7 +50,14 @@ if(isNode) {
     };
 
     $list.on('click', '.articleOpener', function(e) {
+      if ($(this).hasClass('current')) {
+        return;
+      }
+
       var articleId = this.dataset.articleid;
+
+      $list.find('.current').removeClass('current');
+      $(this).addClass('current');
 
       $.ajax({
         url: '/api/article',
