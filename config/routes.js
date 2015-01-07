@@ -21,23 +21,25 @@ function listData(data) {
   $posts.each(function(i, elem) {
     var item = this.children[1].children[1].children[1];
     var obj = {};
-
-    var comment;
+    var $link;
 
     if (this.type === 'tag' && this.children) {
       item = item.children;
 
-      obj.num = item[1].children[0].children[0].data;
-      obj.articleId = item[3].children[1].attribs.title;
-      obj.subject = item[3].children[1].children[0].data.trim();
+      obj.num = $(this).find('td[width="45"]').text();
 
-      comment = item[3].children[2].children[0].children[0].children[0].children[0].children[0];
-      obj.commentCount = comment ? comment.children[0].data : '';
+      $link = $(this).find('td[width="383"] > a');
+      obj.articleId = $link.attr('title');
+      obj.subject = $link.text();
 
-      obj.author = item[5].children[0].children[1].children[0].data;
-      obj.userId = getUserId(item[5].children[0].children[0].children[0].children[0].attribs.onclick);
-      obj.date = item[9].children[0].children[0].data;
-      obj.views = item[11].children[0].children[0].data;
+      obj.commentCount = $(this).find('td[width="383"] .A12oreng').text();
+
+      console.log();
+
+      obj.author = $(this).find('td[width="82"] a').text();
+      obj.userId = getUserId($(this).find('td[width="82"] li:first-child').attr('onclick'));
+      obj.date = $(this).find('td[width="66"]').text();
+      obj.views = $(this).find('td[width="40"]').text();
 
       arr.push(obj);
       lastid = obj.articleId;
