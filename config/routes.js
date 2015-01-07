@@ -94,6 +94,47 @@ module.exports = function(app) {
     });
   });
 
+  app.post('/api/article', function(req, res) {
+    var reqData = req.body;
+    var articleId = reqData.articleId;
+
+    var reqURL = mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId;
+    
+    http.get(reqURL, function(response) {
+      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
+        body = stripScripts(body);
+        var $ = cheerio.load(body);
+
+        if (!$('body').length) {
+          res.send(500, {
+            status: 500,
+            message: 'internal error',
+            type: 'internal'
+          });
+        }
+
+        var data = {};
+        $('style, script').remove();
+        data.subject = $('td[width="82%"] strong').text();
+
+        var $author = $('td[width="18%"] font');
+        data.authorNickname = $author.find('a').text();
+        data.authorId = getUserId($author.find('li:first-child').attr('onclick'));
+
+        data.article = $('.G13 div[align="justify"]').html();
+        data.articleNumber = articleId;
+        data.date = $('.D11[width="225"] font:last-child').text();
+        data.ip = $('.D11[width="201"] font:last-child').text();
+
+        var $viewAndVotes = $('.D11[width="76"] strong');
+        data.views = $viewAndVotes.eq(0).text();
+        data.votes = $viewAndVotes.eq(1).text();
+
+        res.json(data);
+      });
+    });
+  });
+
   app.get('/article/:articleId', function(req, res) {
     var reqParams = req.params;
     var articleId = reqParams.articleId;
