@@ -54,11 +54,11 @@ var mlbparkPath = 'http://mlbpark.donga.com';
 
 module.exports = function(app) {
   app.get('/', function(req, res) {
-    res.redirect('/page/1');
+    res.redirect('/list');
   });
 
-  app.get('/page/:pageNum', function(req, res) {
-    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=' + req.params.pageNum;
+  app.get('/list', function(req, res) {
+    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=1';
 
     http.get(reqURL, function(response) {
       response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
