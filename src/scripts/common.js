@@ -27,7 +27,7 @@ if(isNode) {
     var $target = $('#list');
 
     var createList = function(res) {
-      var frag = document.createDocumentFragment();
+      var ul = document.createElement('ul');
       var $t;
       var li;
 
@@ -47,10 +47,10 @@ if(isNode) {
           '</div>'
         ].join('\n');
 
-        frag.appendChild(li);
+        ul.appendChild(li);
       }
 
-      $target.append(frag)
+      $target.append(ul);
     };
 
     var loadList = function() {
