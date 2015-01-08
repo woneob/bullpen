@@ -11,7 +11,7 @@
             <% items.array.forEach(function($t, i) { %>
               <li class="articleOpener" data-articleid="<%= $t.articleId %>" <%- $t.isReply ? 'data-reply="' + $t.isReply + '"' : '' %>>
                 <div>
-                  <%= $t.subject %>
+                  <em class="subject"><%= $t.subject %></em>
                   <span class="comment"><%= $t.commentCount || '' %></span>
                 </div>
                 <div class="meta">

@@ -98,7 +98,7 @@ if(isNode) {
 
         li.innerHTML = [
           '<div>',
-          $t.subject,
+          '  <em class="subject">' + $t.subject + '</em>',
           '  <span class="comment">' + ($t.commentCount || '') + '</span>',
           '</div>',
           '<div class="meta">',
