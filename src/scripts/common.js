@@ -47,6 +47,20 @@ if(isNode) {
       ].join('\n'));
     };
 
+    var loadAjax = function(articleId) {
+      $.ajax({
+        url: '/api/article',
+        type: 'POST',
+        data: {
+          articleId: articleId
+        },
+        dataType : 'json',
+        success: function(res) {
+          open(res);
+        }
+      });
+    };
+
     var clearCurrent = function() {
       $list.find('.current').removeClass('current');
     };
@@ -60,20 +74,25 @@ if(isNode) {
 
       var articleId = this.dataset.articleid;
 
+      history.pushState({
+        articleId: articleId
+      }, null, '/list/' + articleId);
+
       clearCurrent();
       $(this).addClass('current');
+      loadAjax(articleId);
+    });
 
-      $.ajax({
-        url: '/api/article',
-        type: 'POST',
-        data: {
-          articleId: articleId
-        },
-        dataType : 'json',
-        success: function(res) {
-          open(res);
-        }
-      });
+    $(window).on("popstate", function(e) {
+      var data = e.originalEvent.state.articleId;
+
+      if (!data) {
+        return;
+      }
+
+      loadAjax(data);
+      clearCurrent();
+      $list.find('[data-articleid="' + data +'"]').addClass('current');
     });
   })();
 
