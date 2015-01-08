@@ -121,7 +121,7 @@ module.exports = function(app) {
         data.authorId = getUserId($author.find('li:first-child').attr('onclick'));
 
         data.article = $('.G13 div[align="justify"]').html();
-        data.articleNumber = articleId;
+        data.articleId = articleId;
         data.date = $('.D11[width="225"] font:last-child').text();
         data.ip = $('.D11[width="201"] font:last-child').text();
 
