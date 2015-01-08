@@ -1,4 +1,3 @@
-var http = require('http');
 var cheerio = require('cheerio');
 var request = require('request');
 var iconv = require('iconv-lite');
@@ -59,15 +58,17 @@ module.exports = function(app) {
   });
 
   app.get('/list', function(req, res) {
-    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=1';
+    var reqOpts = {
+      url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=1',
+      encoding: null
+    };
 
-    http.get(reqURL, function(response) {
-      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
-        body = stripScripts(body);
+    request.get(reqOpts, function(err, resp, body) {
+      body = iconv.decode(body, 'EUC-KR');
+      body = stripScripts(body);
 
-        res.render('index', {
-          items: listData(body)
-        });
+      res.render('index', {
+        items: listData(body)
       });
     });
   });
@@ -79,17 +80,18 @@ module.exports = function(app) {
 
     page++;
 
-    var reqURL = mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=' + page;
+    var reqOpts = {
+      url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage='  + page,
+      encoding: null
+    };
 
-    http.get(reqURL, function(response) {
-      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
-        body = stripScripts(body);
+    request.get(reqOpts, function(err, resp, body) {
+      body = iconv.decode(body, 'EUC-KR');
+      body = stripScripts(body);
 
-        var resData = listData(body);
-        resData.page = page;
-
-        res.json(resData);
-      });
+      var data = listData(body);
+      data.page = page;
+      res.json(data);
     });
   });
 
@@ -97,40 +99,43 @@ module.exports = function(app) {
     var reqData = req.body;
     var articleId = reqData.articleId;
 
-    var reqURL = mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId;
-    
-    http.get(reqURL, function(response) {
-      response.pipe(iconv.decodeStream('EUC-KR')).collect(function(err, body) {
-        body = stripScripts(body);
-        var $ = cheerio.load(body);
+    var reqOpts = {
+      url: mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId,
+      encoding: null
+    };
 
-        if (!$('body').length) {
-          res.send(500, {
-            status: 500,
-            message: 'internal error',
-            type: 'internal'
-          });
-        }
+    request.get(reqOpts, function(err, resp, body) {
+      body = iconv.decode(body, 'EUC-KR');
+      body = stripScripts(body);
 
-        var data = {};
-        $('style, script').remove();
-        data.subject = $('td[width="82%"] strong').text();
+      var $ = cheerio.load(body);
 
-        var $author = $('td[width="18%"] font');
-        data.authorNickname = $author.find('a').text();
-        data.authorId = getUserId($author.find('li:first-child').attr('onclick'));
+      if (!$('body').length) {
+        res.send(500, {
+          status: 500,
+          message: 'internal error',
+          type: 'internal'
+        });
+      }
 
-        data.article = $('.G13 div[align="justify"]').html();
-        data.articleId = articleId;
-        data.date = $('.D11[width="225"] font:last-child').text();
-        data.ip = $('.D11[width="201"] font:last-child').text();
+      var data = {};
+      $('style, script').remove();
+      data.subject = $('td[width="82%"] strong').text();
 
-        var $viewAndVotes = $('.D11[width="76"] strong');
-        data.views = $viewAndVotes.eq(0).text();
-        data.votes = $viewAndVotes.eq(1).text();
+      var $author = $('td[width="18%"] font');
+      data.authorNickname = $author.find('a').text();
+      data.authorId = getUserId($author.find('li:first-child').attr('onclick'));
 
-        res.json(data);
-      });
+      data.article = $('.G13 div[align="justify"]').html();
+      data.articleId = articleId;
+      data.date = $('.D11[width="225"] font:last-child').text();
+      data.ip = $('.D11[width="201"] font:last-child').text();
+
+      var $viewAndVotes = $('.D11[width="76"] strong');
+      data.views = $viewAndVotes.eq(0).text();
+      data.votes = $viewAndVotes.eq(1).text();
+
+      res.json(data);
     });
   });
 };
