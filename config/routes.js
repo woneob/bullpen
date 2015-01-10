@@ -118,6 +118,13 @@ module.exports = function(app) {
         });
       }
 
+      var imgPathReplacement = function(str) {
+        var host = req.headers.host;
+        var imgpath = host + '/img';
+        str = str.replace(/imgpark\.donga\.com/gim, imgpath + '/imgpark');
+        return str;
+      };
+
       var data = {};
       $('style, script').remove();
       data.subject = $('td[width="82%"] strong').text();
@@ -126,7 +133,7 @@ module.exports = function(app) {
       data.authorNickname = $author.find('a').text();
       data.authorId = getUserId($author.find('li:first-child').attr('onclick'));
 
-      data.article = $('.G13 div[align="justify"]').html();
+      data.article = imgPathReplacement($('.G13 div[align="justify"]').html());
       data.articleId = articleId;
       data.date = $('.D11[width="225"] font:last-child').text();
       data.ip = $('.D11[width="201"] font:last-child').text();
@@ -137,5 +144,24 @@ module.exports = function(app) {
 
       res.json(data);
     });
+  });
+
+  app.get('/img/*', function(req, res) {
+    var opts = {};
+    var servers = {
+      imgpark : {
+        host: 'http://imgpark.donga.com',
+        referer: 'http://mlbpark.donga.com'
+      }
+    };
+    var pathArray = req.path.replace(/^\/img/, '').split('/');
+    var serverType = pathArray.splice(1, 1)[0];
+
+    var currentServer = servers[serverType];
+    opts.url = currentServer.host + pathArray.join('/');
+    opts.headers = {};
+    opts.headers.Referer = currentServer.referer;
+
+    request.get(opts).pipe(res);
   });
 };
