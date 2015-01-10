@@ -94,6 +94,14 @@ if(isNode) {
       clearCurrent();
       $list.find('[data-articleid="' + data +'"]').addClass('current');
     });
+
+    $(document).ready(function() {
+      var pathnameArray = window.location.pathname.split('/');
+
+      if (pathnameArray[1] === 'list' && pathnameArray[2].length) {
+        loadAjax(pathnameArray[2]);
+      }
+    });
   })();
 
   var loadMore = (function() {

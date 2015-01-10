@@ -57,7 +57,7 @@ module.exports = function(app) {
     res.redirect('/list');
   });
 
-  app.get('/list', function(req, res) {
+  app.get('/list/:articleId?', function(req, res) {
     var reqOpts = {
       url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=1',
       encoding: null
