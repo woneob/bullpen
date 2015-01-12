@@ -112,6 +112,7 @@ if(isNode) {
     var $button = $('#loadMore');
     var $target = $('#list');
     var $aside = $('.asideWrap');
+    var $asideContent = $aside.find('> :first');
 
     var createList = function(res) {
       var ul = document.createElement('ul');
@@ -147,7 +148,6 @@ if(isNode) {
       $target.append(ul);
     };
 
-    var inInfinity = false;
     var isLoading = false;
 
     var loadList = function() {
@@ -175,7 +175,6 @@ if(isNode) {
             lastid: res.lastid,
             page: +res.page + 1
           });
-          inInfinity = true;
         },
         complete: function() {
           isLoading = false;
@@ -186,6 +185,26 @@ if(isNode) {
 
     $button.on('click', loadList);
     $(document).ready(loadList);
+
+    var scrollTimer;
+
+    $aside.on('scroll', function() {
+      var $this = $(this);
+
+      if (scrollTimer) {
+        clearTimeout(scrollTimer);
+      }
+
+      scrollTimer = setTimeout(function() {
+        var gap = 100;
+        var yPos = $this.scrollTop() + $this.height() + gap;
+        var elemHeight = $asideContent.outerHeight();
+
+        if (yPos > elemHeight) {
+          loadList();
+        }
+      }, 300);
+    });
   })();
 
   var sidebarResizer = (function() {
