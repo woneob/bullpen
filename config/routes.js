@@ -59,17 +59,8 @@ module.exports = function(app, db) {
   });
 
   app.get('/list/:articleId?', function(req, res) {
-    var reqOpts = {
-      url: mlbparkPath + bullpenPath + '&cpage=1',
-      encoding: null
-    };
 
-    request.get(reqOpts, function(err, resp, body) {
-      body = iconv.decode(body, 'EUC-KR');
-      body = stripScripts(body);
-
-      res.render('index');
-    });
+    res.render('index');
   });
 
   app.post('/api/list', function(req, res) {
