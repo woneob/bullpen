@@ -53,7 +53,7 @@ function listData(data) {
 var mlbparkPath = 'http://mlbpark.donga.com';
 var bullpenPath = '/mbs/articleL.php?mbsC=bullpen2';
 
-module.exports = function(app) {
+module.exports = function(app, db) {
   app.get('/', function(req, res) {
     res.redirect('/list');
   });

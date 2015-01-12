@@ -9,6 +9,7 @@
     "ejs-locals": "^1.0.2",
     "express": "^4.10.7",
     "iconv-lite": "^0.4.5",
+    "jfs": "^0.2.5",
     "request": "^2.51.0"
   },
   "devDependencies": {
