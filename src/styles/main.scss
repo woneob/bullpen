@@ -128,6 +128,10 @@ body {
       &.current {
         background-color: #f6f6f6;
 
+        .subject {
+          font-weight: bold;
+        }
+
         &:hover {
           background-color: #f4f4f4;
         }
