@@ -138,4 +138,12 @@ module.exports = function(grunt) {
 		'express',
 		'watch'
 	]);
+
+	grunt.registerTask('build', [
+		'clean',
+		'copy',
+		'sass',
+		'uglify',
+		'imagemin'
+	]);
 };
