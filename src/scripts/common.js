@@ -148,8 +148,14 @@ if(isNode) {
     };
 
     var inInfinity = false;
+    var isLoading = false;
+
     var loadList = function() {
       var data = $button.data();
+
+      if (isLoading) {
+        return;
+      }
 
       $.ajax({
         url: '/api/list',
@@ -159,6 +165,9 @@ if(isNode) {
           page: data.page
         },
         dataType : 'json',
+        beforeSend: function() {
+          isLoading = true;
+        },
         success: function(res) {
           createList(res.array);
           $button.data({
@@ -166,6 +175,9 @@ if(isNode) {
             page: +res.page + 1
           });
           inInfinity = true;
+        },
+        complete: function() {
+          isLoading = false;
         }
       });
     };
