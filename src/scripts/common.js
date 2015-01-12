@@ -98,6 +98,10 @@ if(isNode) {
     $(document).ready(function() {
       var pathnameArray = window.location.pathname.split('/');
 
+      if (pathnameArray.length <= 2) {
+        return;
+      }
+
       if (pathnameArray[1] === 'list' && pathnameArray[2].length) {
         loadAjax(pathnameArray[2]);
       }
