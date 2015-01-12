@@ -107,7 +107,11 @@ body {
 }
 
 #articleList {
+  background: #eee;
+
   ul {
+    background-color: #fff;
+
     + ul:not(:empty) {
       border-top: 1px solid #ccc;
     }
@@ -166,6 +170,40 @@ body {
         margin-top: 4px;
         font-size: 11px;
         color: #999;
+      }
+    }
+  }
+
+  .footButton {
+    border-top: 1px solid #e3e3e3;
+    padding: 10px 0 12px;
+    text-align: center;
+
+    .loadMoreButton {
+      margin: 0;
+      display: inline-block;
+      margin: 0 auto;
+      background: #fff;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #e3e3e3 #e3e3e3 #ccc;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+      color: #666;
+      line-height: 1;
+      padding: 6px 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+
+      &:hover {
+        color: #333;
+        border-color: #ddd #ddd #bbb;
+      }
+
+      &:active {
+        color: #333;
+        background-color: #f9f9f9;
+        border-color: #ccc #ccc #aaa;
       }
     }
   }
