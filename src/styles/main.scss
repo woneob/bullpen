@@ -180,18 +180,18 @@ body {
     text-align: center;
 
     .loadMoreButton {
-      margin: 0;
+      position: relative;
       display: inline-block;
-      margin: 0 auto;
+      margin: 0;
+      padding: 6px 30px;
       background: #fff;
       border-width: 1px;
       border-style: solid;
       border-color: #e3e3e3 #e3e3e3 #ccc;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-      color: #666;
-      line-height: 1;
-      padding: 6px 30px;
       border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+      line-height: 1;
+      color: #666;
       cursor: pointer;
       outline: none;
 
@@ -205,7 +205,33 @@ body {
         background-color: #f9f9f9;
         border-color: #ccc #ccc #aaa;
       }
+
+      &.loading {
+        color: transparent !important;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto;
+          width: 10px;
+          height: 10px;
+          border: 2px solid #999;
+          border-top-color: transparent;
+          border-radius: 50%;
+          -webkit-animation: spin linear .5s infinite;
+        }
+      }
     }
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

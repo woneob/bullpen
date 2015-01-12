@@ -167,6 +167,7 @@ if(isNode) {
         dataType : 'json',
         beforeSend: function() {
           isLoading = true;
+          $button.addClass('loading');
         },
         success: function(res) {
           createList(res.array);
@@ -178,6 +179,7 @@ if(isNode) {
         },
         complete: function() {
           isLoading = false;
+          $button.removeClass('loading');
         }
       });
     };
