@@ -51,6 +51,7 @@ function listData(data) {
 }
 
 var mlbparkPath = 'http://mlbpark.donga.com';
+var bullpenPath = '/mbs/articleL.php?mbsC=bullpen2';
 
 module.exports = function(app) {
   app.get('/', function(req, res) {
@@ -59,7 +60,7 @@ module.exports = function(app) {
 
   app.get('/list/:articleId?', function(req, res) {
     var reqOpts = {
-      url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage=1',
+      url: mlbparkPath + bullpenPath + '&cpage=1',
       encoding: null
     };
 
@@ -77,7 +78,7 @@ module.exports = function(app) {
     var lastid = Number(reqData.lastid);
 
     var reqOpts = {
-      url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage='  + page,
+      url: mlbparkPath + bullpenPath + '&cpage='  + page,
       encoding: null
     };
 
@@ -96,7 +97,7 @@ module.exports = function(app) {
     var articleId = reqData.articleId;
 
     var reqOpts = {
-      url: mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId,
+      url: mlbparkPath + bullpenPath + '&mbsIdx=' + articleId,
       encoding: null
     };
 
