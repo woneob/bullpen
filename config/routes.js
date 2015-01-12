@@ -97,7 +97,7 @@ module.exports = function(app) {
     var articleId = reqData.articleId;
 
     var reqOpts = {
-      url: mlbparkPath + bullpenPath + '&mbsIdx=' + articleId,
+      url: mlbparkPath + '/mbs/articleV.php?mbsC=bullpen2&mbsIdx=' + articleId,
       encoding: null
     };
 
