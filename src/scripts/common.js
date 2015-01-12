@@ -107,6 +107,7 @@ if(isNode) {
   var loadMore = (function() {
     var $button = $('#loadMore');
     var $target = $('#list');
+    var $aside = $('.asideWrap');
 
     var createList = function(res) {
       var ul = document.createElement('ul');
@@ -142,8 +143,9 @@ if(isNode) {
       $target.append(ul);
     };
 
+    var inInfinity = false;
     var loadList = function() {
-      var data = this.dataset;
+      var data = $button.data();
 
       $.ajax({
         url: '/api/list',
@@ -155,15 +157,17 @@ if(isNode) {
         dataType : 'json',
         success: function(res) {
           createList(res.array);
-          $button.attr({
-            'data-lastid': res.lastid,
-            'data-page': res.page
+          $button.data({
+            lastid: res.lastid,
+            page: +res.page + 1
           });
+          inInfinity = true;
         }
       });
     };
 
     $button.on('click', loadList);
+    $(document).ready(loadList);
   })();
 
   var sidebarResizer = (function() {

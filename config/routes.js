@@ -67,9 +67,7 @@ module.exports = function(app) {
       body = iconv.decode(body, 'EUC-KR');
       body = stripScripts(body);
 
-      res.render('index', {
-        items: listData(body)
-      });
+      res.render('index');
     });
   });
 
@@ -77,8 +75,6 @@ module.exports = function(app) {
     var reqData = req.body;
     var page = Number(reqData.page);
     var lastid = Number(reqData.lastid);
-
-    page++;
 
     var reqOpts = {
       url: mlbparkPath + '/mbs/articleL.php?mbsC=bullpen2&cpage='  + page,
