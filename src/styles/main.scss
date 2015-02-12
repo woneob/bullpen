@@ -40,19 +40,6 @@ body {
     display: flex;
     flex: auto;
   }
-
-  .pageFooter {
-    box-sizing: border-box;
-    flex: 1 0 10%;
-    min-height: 30px;
-    max-height: 30px;
-    padding-top: 6px;
-    background: #f6f6f6;
-    border-top: 1px solid #eee;
-    font-size: 11px;
-    color: #999;
-    text-align: center;
-  }
 }
 
 #indexContainer {
