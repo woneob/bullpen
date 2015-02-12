@@ -19,6 +19,8 @@ body {
 
   .pageHeader {
     flex: 1;
+    position: relative;
+    z-index: 2;
     min-height: 30px;
     max-height: 30px;
     background: #565656;
@@ -61,6 +63,7 @@ body {
 
   .aside {
     position: relative;
+    z-index: 1;
     width: 360px;
     min-height: 100%;
 
